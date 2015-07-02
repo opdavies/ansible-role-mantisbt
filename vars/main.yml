@@ -1,0 +1,3 @@
+---
+mantis_tmp: "/tmp/mantis-{{ mantis_version }}.{{ mantis_file_extension }}"
+mantis_full_path: "{{ mantis_path }}/mantisbt-{{ mantis_version }}"

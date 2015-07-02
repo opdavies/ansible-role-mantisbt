@@ -1,0 +1,43 @@
+---
+- name: Download Mantis.
+  get_url:
+    url: "http://sourceforge.net/projects/mantisbt/files/mantis-stable/1.2.19/mantisbt-{{ mantis_version }}.{{ mantis_file_extension }}/download"
+    dest: "{{ mantis_tmp }}"
+
+- name: Create directory for Mantis.
+  file:
+    path: "{{ mantis_path }}"
+    state: directory
+
+- name: Extract Mantis.
+  unarchive:
+    src: "{{ mantis_tmp }}"
+    dest: "{{ mantis_path }}"
+    copy: no
+    mode: 0755
+    owner: root
+    group: root
+
+- name: Install packages.
+  apt:
+    name: "{{ item }}"
+    state: installed
+  with_items:
+    - apache2
+    - mysql-server
+    - php5
+
+- name: Start services.
+  service:
+    name: "{{ item }}"
+    state: running
+    enabled: true
+  with_items:
+    - apache2
+    - mysql
+
+- name: Create Mantis vhost.
+  template:
+    src: vhost.j2
+    dest: /etc/apache2/sites-enabled/mantis.conf
+  notify: restart apache
