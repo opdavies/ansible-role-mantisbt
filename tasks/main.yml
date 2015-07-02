@@ -61,6 +61,7 @@
     name: "{{ mantis_db_name }}"
     state: present
   when: mantis_create_db
+  register: mantis_db_created
 
 - name: Copy database install script.
   copy:
@@ -74,7 +75,7 @@
     name: "{{ mantis_db_name }}"
     state: import
     target: /tmp/mantis_install.sql
-  when: mantis_install_db
+  when: mantis_db_created.changed
 
 - name: Create Mantis database user.
   sudo: yes
