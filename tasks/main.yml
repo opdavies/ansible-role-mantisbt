@@ -26,6 +26,7 @@
     - apache2
     - mysql-server
     - php5
+    - php5-mysql
 
 - name: Start services.
   service:
@@ -41,3 +42,22 @@
     src: vhost.j2
     dest: /etc/apache2/sites-enabled/mantis.conf
   notify: restart apache
+
+- name: Install python-mysqldb
+  apt:
+    name: python-mysqldb
+  when: mantis_db_name is defined
+
+- name: Create Mantis database.
+  mysql_db:
+    name: "{{ mantis_db_name }}"
+    state: present
+  when: mantis_db_name is defined
+
+- name: Create Mantis database user.
+  mysql_user:
+    name: "{{ mantis_db_user }}"
+    password: "{{ mantis_db_pass }}"
+    state: present
+    priv: "{{ mantis_db_name }}.*:ALL"
+  when: mantis_db_name is defined
