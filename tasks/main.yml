@@ -5,11 +5,13 @@
     dest: "{{ mantis_tmp }}"
 
 - name: Create directory for Mantis.
+  sudo: yes
   file:
     path: "{{ mantis_path }}"
     state: directory
 
 - name: Extract Mantis.
+  sudo: yes
   unarchive:
     src: "{{ mantis_tmp }}"
     dest: "{{ mantis_path }}"
@@ -19,6 +21,7 @@
     group: root
 
 - name: Install packages.
+  sudo: yes
   apt:
     name: "{{ item }}"
     state: installed
@@ -29,6 +32,7 @@
     - php5-mysql
 
 - name: Start services.
+  sudo: yes
   service:
     name: "{{ item }}"
     state: running
@@ -38,23 +42,27 @@
     - mysql
 
 - name: Create Mantis vhost.
+  sudo: yes
   template:
     src: vhost.j2
     dest: /etc/apache2/sites-enabled/mantis.conf
   notify: restart apache
 
 - name: Install python-mysqldb
+  sudo: yes
   apt:
     name: python-mysqldb
   when: mantis_db_name is defined
 
 - name: Create Mantis database.
+  sudo: yes
   mysql_db:
     name: "{{ mantis_db_name }}"
     state: present
   when: mantis_db_name is defined
 
 - name: Create Mantis database user.
+  sudo: yes
   mysql_user:
     name: "{{ mantis_db_user }}"
     password: "{{ mantis_db_pass }}"
@@ -63,6 +71,7 @@
   when: mantis_db_name is defined
 
 - name: Copy config_inc.php
+  sudo: yes
   template:
     src: config_inc.php.j2
     dest: "{{ mantis_full_path }}/config_inc.php"
