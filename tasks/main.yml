@@ -61,3 +61,11 @@
     state: present
     priv: "{{ mantis_db_name }}.*:ALL"
   when: mantis_db_name is defined
+
+- name: Copy config_inc.php
+  template:
+    src: config_inc.php.j2
+    dest: "{{ mantis_full_path }}/config_inc.php"
+    mode: 0755
+    owner: root
+    group: root
