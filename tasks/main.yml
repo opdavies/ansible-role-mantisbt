@@ -47,28 +47,43 @@
     src: vhost.j2
     dest: /etc/apache2/sites-enabled/mantis.conf
   notify: restart apache
+  when: mantis_install_vhost
 
 - name: Install python-mysqldb
   sudo: yes
   apt:
     name: python-mysqldb
-  when: mantis_db_name is defined
+  when: mantis_create_db
 
 - name: Create Mantis database.
   sudo: yes
   mysql_db:
     name: "{{ mantis_db_name }}"
     state: present
-  when: mantis_db_name is defined
+  when: mantis_create_db
+
+- name: Copy database install script.
+  copy:
+    src: install.sql
+    dest: /tmp/mantis_install.sql
+  when: mantis_install_db
+
+- name: Install Mantis database.
+  sudo: yes
+  mysql_db:
+    name: "{{ mantis_db_name }}"
+    state: import
+    target: /tmp/mantis_install.sql
+  when: mantis_install_db
 
 - name: Create Mantis database user.
   sudo: yes
   mysql_user:
     name: "{{ mantis_db_user }}"
     password: "{{ mantis_db_pass }}"
-    state: present
     priv: "{{ mantis_db_name }}.*:ALL"
-  when: mantis_db_name is defined
+    state: present
+  when: mantis_install_db
 
 - name: Copy config_inc.php
   sudo: yes
