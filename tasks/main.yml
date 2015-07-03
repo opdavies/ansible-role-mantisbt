@@ -3,12 +3,14 @@
   get_url:
     url: "http://sourceforge.net/projects/mantisbt/files/mantis-stable/1.2.19/mantisbt-{{ mantis_version }}.{{ mantis_file_extension }}/download"
     dest: "{{ mantis_tmp }}"
+  register: mantis_downloaded
 
 - name: Create directory for Mantis.
   sudo: yes
   file:
     path: "{{ mantis_path }}"
     state: directory
+  when: mantis_downloaded.changed
 
 - name: Extract Mantis.
   sudo: yes
@@ -19,6 +21,7 @@
     mode: 0755
     owner: root
     group: root
+  when: mantis_downloaded.changed
 
 - name: Install packages.
   sudo: yes
