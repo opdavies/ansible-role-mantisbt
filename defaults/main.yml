@@ -5,3 +5,4 @@ mantis_path: /var/www
 mantis_install_vhost: true
 mantis_create_db: true
 mantis_install_db: true
+mantis_remove_admin: true
