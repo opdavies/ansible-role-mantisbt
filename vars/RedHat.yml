@@ -2,7 +2,8 @@
 mantis_packages:
   - httpd
   - mysql-server
-mantis_services:
-  - httpd
-  - mysql
+  - php
+  - php-mysql
+mantis_apache_service: httpd
+mantis_mysql_service: mysqld
 mantis_vhost_dir: /etc/httpd/conf.d

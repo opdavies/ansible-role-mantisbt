@@ -26,12 +26,11 @@
 - name: Include OS-specific variables.
   include_vars: "{{ ansible_os_family }}.yml"
 
-- name: Install packages.
-  sudo: yes
-  apt:
-    name: "{{ item }}"
-    state: installed
-  with_items: mantis_packages
+- include: Debian.yml
+  when: ansible_os_family == 'Debian'
+
+- include: RedHat.yml
+  when: ansible_os_family == 'RedHat'
 
 - name: Start services.
   sudo: yes
@@ -39,7 +38,9 @@
     name: "{{ item }}"
     state: running
     enabled: true
-  with_items: mantis_services
+  with_items:
+    - "{{ mantis_apache_service }}"
+    - "{{ mantis_mysql_service }}"
 
 - name: Create Mantis vhost.
   sudo: yes
@@ -48,12 +49,6 @@
     dest: "{{ mantis_vhost_dir }}/mantis.conf"
   notify: restart apache
   when: mantis_install_vhost
-
-- name: Install python-mysqldb
-  sudo: yes
-  apt:
-    name: python-mysqldb
-  when: mantis_create_db
 
 - name: Create Mantis database.
   sudo: yes
