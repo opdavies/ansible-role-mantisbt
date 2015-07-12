@@ -3,6 +3,7 @@ mantis_version: 1.2.19
 mantis_file_extension: tar.gz
 mantis_path: /var/www
 mantis_install_vhost: true
+mantis_url: mantis.local
 mantis_create_db: true
 mantis_install_db: true
 mantis_remove_admin: true
