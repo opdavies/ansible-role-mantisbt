@@ -4,5 +4,5 @@ mantis_packages:
   - mysql-server
 mantis_services:
   - httpd
-  - mysqld
-mantis_vhost_path: /etc/httpd/conf.d
+  - mysql
+mantis_vhost_dir: /etc/httpd/conf.d
