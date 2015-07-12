@@ -1,7 +1,7 @@
 ---
 - name: Download Mantis.
   get_url:
-    url: "http://sourceforge.net/projects/mantisbt/files/mantis-stable/1.2.19/mantisbt-{{ mantis_version }}.{{ mantis_file_extension }}/download"
+    url: "http://sourceforge.net/projects/mantisbt/files/mantis-stable/{{ mantis_version }}/mantisbt-{{ mantis_version }}.{{ mantis_file_extension }}/download"
     dest: "{{ mantis_tmp }}"
   register: mantis_downloaded
 
