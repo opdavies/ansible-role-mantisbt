@@ -23,16 +23,15 @@
     group: root
   when: mantis_downloaded.changed
 
+- name: Include OS-specific variables.
+  include_vars: "{{ ansible_os_family }}.yml"
+
 - name: Install packages.
   sudo: yes
   apt:
     name: "{{ item }}"
     state: installed
-  with_items:
-    - apache2
-    - mysql-server
-    - php5
-    - php5-mysql
+  with_items: mantis_packages
 
 - name: Start services.
   sudo: yes
@@ -40,15 +39,13 @@
     name: "{{ item }}"
     state: running
     enabled: true
-  with_items:
-    - apache2
-    - mysql
+  with_items: mantis_services
 
 - name: Create Mantis vhost.
   sudo: yes
   template:
     src: vhost.j2
-    dest: /etc/apache2/sites-enabled/mantis.conf
+    dest: "{{ mantis_vhost_dir }}/mantis.conf"
   notify: restart apache
   when: mantis_install_vhost
 

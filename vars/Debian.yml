@@ -1,0 +1,8 @@
+---
+mantis_packages:
+  - apache2
+  - mysql-server
+mantis_services:
+  - apache2
+  - mysql
+mantis_vhost_path: /etc/apache2/sites-enabled

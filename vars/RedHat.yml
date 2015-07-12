@@ -1,0 +1,8 @@
+---
+mantis_packages:
+  - httpd
+  - mysql-server
+mantis_services:
+  - httpd
+  - mysqld
+mantis_vhost_path: /etc/httpd/conf.d
