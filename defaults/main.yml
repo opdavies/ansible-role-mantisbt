@@ -8,6 +8,7 @@ mantis_url: mantis.local
 mantis_create_db: true
 mantis_install_db: true
 mantis_remove_admin: true
+mantis_copy_config: no
 
 mantis_db_name: mantis
 mantis_db_user: mantis

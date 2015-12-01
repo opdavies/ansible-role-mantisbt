@@ -64,11 +64,16 @@
   when: mantis_create_db
   register: mantis_db_created
 
+- name: Check for the database install script.
+  stat:
+    path: "{{ mantis_db }}"
+  register: mantis_db_path
+
 - name: Copy database install script.
   copy:
     src: install.sql
-    dest: /tmp/mantis_install.sql
-  when: mantis_install_db
+    dest: "{{ mantis_db }}"
+  when: mantis_install_db and not mantis_db_path.stat.exists
 
 - name: Install Mantis database.
   sudo: yes
@@ -85,7 +90,7 @@
     password: "{{ mantis_db_pass }}"
     priv: "{{ mantis_db_name }}.*:ALL"
     state: present
-  when: mantis_install_db
+  when: mantis_db_created.changed
 
 - name: Copy config_inc.php
   sudo: yes
@@ -95,6 +100,7 @@
     mode: 0755
     owner: root
     group: root
+  when: mantis_db_created.changed or mantis_copy_config
 
 - name: Remove admin directory.
   file:
