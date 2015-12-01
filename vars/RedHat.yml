@@ -1,6 +1,7 @@
 ---
 mantis_packages:
   - httpd
+  - mysql
   - mysql-server
   - php
   - php-mysql
