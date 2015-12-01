@@ -366,7 +366,7 @@ ALTER TABLE mantis_user_table ADD  INDEX idx_enable  (enabled);
 ALTER TABLE mantis_user_table ADD  INDEX idx_access  (access_level);
 
 INSERT INTO mantis_user_table(username, realname, email, password, date_created, last_visit, enabled, protected, access_level, login_count, lost_password_request_count, failed_login_count, cookie_string) VALUES
-        ("{{ mantis_admin_username }}", "{{ mantis_admin_real_name }}", "{{ mantis_admin_email }}, '63a9f0ea7bb98050796b649e85481845', '2015-07-02 23:11:14', '2015-07-02 23:11:14', '1', '0', 90, 3, 0, 0, '2921a49b20cf5e2383be461cee270922e5aa4048c26ebda5224866d65b71f52a');
+        ("{{ mantis_admin_username }}", "{{ mantis_admin_real_name }}", "{{ mantis_admin_email }}", "{{ mantis_admin_password|hash('md5') }}", '2015-07-02 23:11:14', '2015-07-02 23:11:14', '1', '0', 90, 3, 0, 0, '2921a49b20cf5e2383be461cee270922e5aa4048c26ebda5224866d65b71f52a');
 
 ALTER TABLE mantis_bug_history_table MODIFY COLUMN old_value VARCHAR(255) NOT NULL;
 

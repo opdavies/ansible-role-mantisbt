@@ -13,3 +13,8 @@ mantis_copy_config: no
 mantis_db_name: mantis
 mantis_db_user: mantis
 mantis_db_pass: mantis
+
+mantis_admin_username: administrator
+mantis_admin_real_name: ''
+mantis_admin_email: root@localhost
+mantis_admin_password: root
