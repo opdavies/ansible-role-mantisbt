@@ -70,8 +70,8 @@
   register: mantis_db_path
 
 - name: Copy database install script.
-  copy:
-    src: install.sql
+  template:
+    src: install.sql.j2
     dest: "{{ mantis_db }}"
   when: mantis_install_db and not mantis_db_path.stat.exists
 
