@@ -1,8 +1,14 @@
 ---
+- name: Check for the Mantis archive.
+  stat:
+    path: "{{ mantis_tmp }}"
+  register: mantis_tmp_path
+
 - name: Download Mantis.
   get_url:
     url: "http://sourceforge.net/projects/mantisbt/files/mantis-stable/{{ mantis_version }}/mantisbt-{{ mantis_version }}.{{ mantis_file_extension }}/download"
     dest: "{{ mantis_tmp }}"
+  when: not mantis_tmp_path.stat.exists
   register: mantis_downloaded
 
 - name: Create directory for Mantis.
