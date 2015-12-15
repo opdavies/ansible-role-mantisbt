@@ -1,28 +1,28 @@
 ---
 - name: Check for the Mantis archive.
   stat:
-    path: "{{ mantis_tmp }}"
-  register: mantis_tmp_path
+    path: "{{ mantis_tmp_path }}"
+  register: mantis_tmp_path_check
 
 - name: Download Mantis.
   get_url:
     url: "http://sourceforge.net/projects/mantisbt/files/mantis-stable/{{ mantis_version }}/mantisbt-{{ mantis_version }}.{{ mantis_file_extension }}/download"
-    dest: "{{ mantis_tmp }}"
-  when: not mantis_tmp_path.stat.exists
+    dest: "{{ mantis_tmp_path }}"
+  when: not mantis_tmp_path_check.stat.exists
   register: mantis_downloaded
 
 - name: Create directory for Mantis.
   sudo: yes
   file:
-    path: "{{ mantis_path }}"
+    path: "{{ mantis_parent_dir }}"
     state: directory
   when: mantis_downloaded.changed
 
 - name: Extract Mantis.
   sudo: yes
   unarchive:
-    src: "{{ mantis_tmp }}"
-    dest: "{{ mantis_path }}"
+    src: "{{ mantis_tmp_path }}"
+    dest: "{{ mantis_parent_dir }}"
     copy: no
     mode: 0755
     owner: root

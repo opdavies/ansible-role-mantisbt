@@ -1,9 +1,0 @@
----
-mantis_packages:
-  - apache2
-  - mysql-server
-  - php5
-  - php5-mysql
-mantis_apache_service: apache2
-mantis_mysql_service: mysql
-mantis_vhost_dir: /etc/apache2/sites-enabled

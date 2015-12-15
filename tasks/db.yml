@@ -9,21 +9,21 @@
 
 - name: Check for the database install script.
   stat:
-    path: "{{ mantis_db }}"
-  register: mantis_db_path
+    path: "{{ mantis_tmp_db }}"
+  register: mantis_db_tmp_path
 
 - name: Copy database install script.
   template:
     src: install.sql.j2
     dest: "{{ mantis_db }}"
-  when: mantis_install_db and not mantis_db_path.stat.exists
+  when: mantis_install_db and not mantis_db_tmp_path.stat.exists
 
 - name: Install Mantis database.
   sudo: yes
   mysql_db:
     name: "{{ mantis_db_name }}"
     state: import
-    target: /tmp/mantis_install.sql
+    target: "{{ mantis_tmp_db }}"
   when: mantis_db_created.changed
 
 - name: Create Mantis database user.
@@ -39,7 +39,7 @@
   sudo: yes
   template:
     src: config_inc.php.j2
-    dest: "{{ mantis_full_path }}/config_inc.php"
+    dest: "{{ mantis_dir }}/config_inc.php"
     mode: 0755
     owner: root
     group: root
