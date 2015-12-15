@@ -1,0 +1,6 @@
+---
+- name: Remove admin directory.
+  file:
+    path: "{{ mantis_full_path }}/admin"
+    state: absent
+  when: mantis_remove_admin
