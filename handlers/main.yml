@@ -1,5 +1,0 @@
----
-- name: restart apache
-  service:
-    name: "{{ mantis_apache_service }}"
-    state: restarted
