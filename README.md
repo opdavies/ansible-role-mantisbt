@@ -27,10 +27,6 @@ The directory that Mantis will be moved into once extracted.
 
 Whether to create and/or install the database.
 
-    mantis_remove_admin: true
-
-Whether or not to remove the `admin` directory. This is recommended for security reasons.
-
     mantis_db_name: mantis
     mantis_db_user: mantis
     mantis_db_pass: mantis

@@ -18,4 +18,3 @@
   file:
     path: "{{ mantis_dir }}/admin"
     state: absent
-  when: mantis_remove_admin
