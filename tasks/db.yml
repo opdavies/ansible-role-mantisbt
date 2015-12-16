@@ -9,7 +9,7 @@
 
 - name: Check for the database install script.
   stat:
-    path: "{{ mantis_tmp_db }}"
+    path: "{{ mantis_db_path }}"
   register: mantis_db_tmp_path
 
 - name: Copy database install script.
