@@ -31,10 +31,6 @@ Whether to create and/or install the database.
 
 Whether or not to remove the `admin` directory. This is recommended for security reasons.
 
-    mantis_copy_config: no
-
-Whether to copy or overwrite `config_inc.php`.
-
     mantis_db_name: mantis
     mantis_db_user: mantis
     mantis_db_pass: mantis

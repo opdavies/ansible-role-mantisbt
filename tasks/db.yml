@@ -34,13 +34,3 @@
     priv: "{{ mantis_db_name }}.*:ALL"
     state: present
   when: mantis_db_created.changed
-
-- name: Copy config_inc.php
-  sudo: yes
-  template:
-    src: config_inc.php.j2
-    dest: "{{ mantis_dir }}/config_inc.php"
-    mode: 0755
-    owner: root
-    group: root
-  when: mantis_db_created.changed or mantis_copy_config
