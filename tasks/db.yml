@@ -15,7 +15,7 @@
 - name: Copy database install script.
   template:
     src: install.sql.j2
-    dest: "{{ mantis_db }}"
+    dest: "{{ mantis_db_name }}"
   when: mantis_install_db and not mantis_db_tmp_path.stat.exists
 
 - name: Install Mantis database.
