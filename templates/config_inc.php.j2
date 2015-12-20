@@ -7,3 +7,7 @@ $g_db_type = 'mysql';
 $g_database_name = "{{ mantis_db_name }}";
 $g_db_username = "{{ mantis_db_user }}";
 $g_db_password = "{{ mantis_db_pass }}";
+
+{% if mantis_extras is defined %}
+{{ mantis_extras }}
+{% endif %}
