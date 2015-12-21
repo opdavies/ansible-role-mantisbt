@@ -1,9 +1,4 @@
 ---
-- name: Check for config_inc.php
-  stat:
-    path: "{{ mantis_dir }}/config_inc.php"
-  register: mantis_config_inc_file
-
 - name: Copy config_inc.php
   sudo: yes
   template:
@@ -12,7 +7,6 @@
     mode: 0755
     owner: root
     group: root
-  when: mantis_config_inc_file.stat.exists == false
 
 - name: Remove admin directory.
   file:
