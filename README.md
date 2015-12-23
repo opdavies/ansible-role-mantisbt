@@ -50,6 +50,10 @@ None (but PHP and MySQL need to be installed; the `geerlingguy.php` and `geerlin
       roles:
         - opdavies.mantisbt
 
+## License
+
+MIT
+
 ## Author
 
 [Oliver Davies](https://www.oliverdavies.uk) - PHP Developer and Linux System Administrator.
